@@ -20,7 +20,7 @@ VALUES
 ("Crime and Punishment by Fyodor Dostoyevsky", "Books", 6.99, 150),
 ("Les Miserables by Victor Hugo", "Books", 6.99, 275),
 ("Pride and Prejudice by Jane Austen", "Books", 8.99, 25),
-("Anne of Green Gable by L.M. Montgomery", "Books", 5.54, 325),
+("Anne of Green Gables by L.M. Montgomery", "Books", 5.54, 325),
 ("Jude the Obscure by Thomas Hardy", "Books", 7.95, 95),
 ("All Creatures Great and Small by James Herriot", "Books", 9.67, 200),
 ("Charlotte's Web by E.B. White", "Books", 3.38, 500),
