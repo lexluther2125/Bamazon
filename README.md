@@ -1,7 +1,8 @@
 # Bamazon
 In this activity, I'll be creating an Amazon-like storefront with the MySQL skills I learned this week. The app will take in orders from customers and deplete stock from the store's inventory.
 
-**CUSTOMER VIEW**
+**CUSTOMER VIEW**:
+
 At the start of our program, we see that we have connected successfully to MySQL by getting a succesful connection id and then we are given a list of available products to select and shop from. Each item has an id, the name of what the item is, the department the item is categorized under, the price of an individual unit of the item, as well as how many items are currently in stock at the time. The user is prompted to input the id of the item they wish to buy.  
 ![programstart](https://user-images.githubusercontent.com/13278175/28495300-def86490-6f0d-11e7-8a08-f8272f9adec9.png)
 
