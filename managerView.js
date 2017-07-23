@@ -36,9 +36,9 @@ function managerOptions() {
         if (answer.options === "View Low Inventory") {
             lowStock();
         };
-        // if (answer.options === "Add to Inventory") {
-        //     addInventory();
-        // };
+        if (answer.options === "Add to Inventory") {
+            addInventory();
+        };
         if (answer.options === "Add New Product") {
         	addProduct();
         }
@@ -70,30 +70,50 @@ function lowStock() {
 };
 
 
-// function addInventory() {
-// //This function should display a prompt that will let the manager "add more" of any item currently in the store
-// 			connection.query("SELECT * FROM products", function(err, res) {
-// 				if (err) throw err;
-// 				var resultArr = res;
-// 				var inventory = [];
-// 				inquirer.prompt([{
-// 					name: "item",
-// 					type: "input",
-// 					message: "What is the id of the item you would like to restock?"
-// 				}, {
-// 					name: "quantity",
-// 					type: "input",
-// 					message: "Enter the number of items you'd like to add."
-// 				}]).then(function(answer) {
-// 					connection.query("UPDATE products SET ? WHERE ?", ["item_id"], ["stock_quantity"]);
-// 					console.log("Your items have been restocked.");
-// 				})
-// 			})
-//                 };
+function addInventory() {
+    //This function should display a prompt that will let the manager "add more" of any item currently in the store
+    connection.query("SELECT * FROM products", function(err, res) {
+        for (var i = 0; i < res.length; i++) {
+            console.log(res[i].item_id + " | " + res[i].product_name + " | " + res[i].department_name + " | " + res[i].price + " | " + res[i].stock_quantity);
+        }
+        inquirer.prompt([{
+                    name: "item",
+                    type: "input",
+                    message: "What is the id of the item you would like to restock?"
+                },
+                {
+                    name: "amount",
+                    type: "input",
+                    message: "How many units would you like to add?",
+                    validate: function(value) {
+                        if (isNaN(value) === false) {
+                            return true;
+                        }
+                        return false;
+                    }
+                }
+            ])
+            .then(function(answer) {
+                connection.query(
+                    "UPDATE products SET ? WHERE ?",
+                    [ 
+                    {
+                        item_id: answer.item
+                    }, 
+                    {
+                        stock_quantity: answer.amount
+                    }
+                    ],
+                    function(err) {
+                        if (err) throw err;
+                        console.log("Your item has been restocked!");
+                        managerOptions();
+                    }
+                );
+            });
+    });
+};
 		
-	
-
-
 function addProduct() {
     //This function should allow the manager to add a completely new product to the store.
     inquirer.prompt([
@@ -139,7 +159,7 @@ function addProduct() {
                 },
                 function(err) {
                     if (err) throw err;
-                    console.log("Your items were added successfully!");
+                    console.log("Your item was added successfully!");
                     managerOptions();
                 }
         );
