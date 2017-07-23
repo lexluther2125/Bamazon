@@ -72,6 +72,7 @@ function lowStock() {
 
 function addInventory() {
     //This function should display a prompt that will let the manager "add more" of any item currently in the store
+	//Not functional
     connection.query("SELECT * FROM products", function(err, res) {
         for (var i = 0; i < res.length; i++) {
             console.log(res[i].item_id + " | " + res[i].product_name + " | " + res[i].department_name + " | " + res[i].price + " | " + res[i].stock_quantity);
