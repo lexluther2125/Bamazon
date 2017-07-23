@@ -12,6 +12,6 @@ After the input of the item id, the user is then asked how many units of the ite
 
 ![how_many](https://user-images.githubusercontent.com/13278175/28495301-e382ea6c-6f0d-11e7-8273-5584bee32348.png)
 
-After getting the user's input, the program then adds the units that the user has requested (granted there are enough units to fulfill their request) and lets them know their grand total. They are then shown the list of available stock once more which shows that the units that were previously purchased have been depleted from the stock at which point they are prompted once more to purchase an item by inputting the item id.
+After getting the user's input, the program then adds the units that the user has requested (granted there are enough units to fulfill their request) and lets them know their grand total. They are then shown the list of available stock once more which shows that the units that were previously purchased have been depleted from the stock. Following this action, they are prompted once more to purchase an item by inputting the item id nd the process repeats.
 
 ![result](https://user-images.githubusercontent.com/13278175/28495302-e561f7b0-6f0d-11e7-8628-7cda8d0e5854.png)
