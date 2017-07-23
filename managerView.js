@@ -72,47 +72,42 @@ function lowStock() {
 
 function addInventory() {
     //This function should display a prompt that will let the manager "add more" of any item currently in the store
-	//Not functional
     connection.query("SELECT * FROM products", function(err, res) {
-        for (var i = 0; i < res.length; i++) {
-            console.log(res[i].item_id + " | " + res[i].product_name + " | " + res[i].department_name + " | " + res[i].price + " | " + res[i].stock_quantity);
-        }
-        inquirer.prompt([{
-                    name: "item",
-                    type: "input",
-                    message: "What is the id of the item you would like to restock?"
-                },
-                {
-                    name: "amount",
-                    type: "input",
-                    message: "How many units would you like to add?",
-                    validate: function(value) {
-                        if (isNaN(value) === false) {
-                            return true;
-                        }
-                        return false;
-                    }
+                for (var i = 0; i < res.length; i++) {
+                    console.log(res[i].item_id + " | " + res[i].product_name + " | " + res[i].department_name + " | " + res[i].price + " | " + res[i].stock_quantity);
                 }
-            ])
-            .then(function(answer) {
-                connection.query(
-                    "UPDATE products SET ? WHERE ?",
-                    [ 
-                    {
-                        item_id: answer.item
-                    }, 
-                    {
-                        stock_quantity: answer.amount
-                    }
-                    ],
-                    function(err) {
-                        if (err) throw err;
-                        console.log("Your item has been restocked!");
-                        managerOptions();
-                    }
-                );
+                inquirer.prompt([{
+                            name: "item",
+                            type: "input",
+                            message: "What is the id of the item you would like to restock?"
+                        },
+                        {
+                            name: "quantity",
+                            type: "input",
+                            message: "How many units of the item are you restocking?",
+                            validate: function(value) {
+                                if (isNaN(value) === false) {
+                                    return true;
+                                }
+                                return false;
+                            }
+                        }
+                    ])
+                    .then(function(answer) {
+                        connection.query("SELECT * FROM products", function(err, res) {
+                            var units = parseInt(answer.quantity);
+                            var itemID = parseInt(answer.item) - 1;
+
+                            var newQuantity = res[itemID].stock_quantity + units;
+                            //console.log(newQuantity);
+                            var query = "UPDATE products SET ? WHERE ?";
+                            connection.query(query, [{ stock_quantity: newQuantity }, { item_id: answer.item }], function(err, res) {
+                                console.log("Items successfully restocked!");
+                                managerOptions();
+                            });
+                        });
+                    });
             });
-    });
 };
 		
 function addProduct() {
